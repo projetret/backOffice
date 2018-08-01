@@ -22,19 +22,19 @@
                     </div><!-- /.box-header -->
                     <!-- form start -->
                     <?php $this->load->helper("form"); ?>
-                    <form role="form" id="addUser" action="<?php echo base_url() ?>addNewUser" method="post" role="form">
+                    <form role="form" id="addAgence" action="<?php echo base_url() ?>Agences/add/storage" method="post" role="form">
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-6">                                
                                     <div class="form-group">
                                         <label for="fname">Raison sociale</label>
-                                        <input type="text" class="form-control required" value="<?php echo set_value('raison_sociale'); ?>" id="raison_sociale" name="raison_sociale" maxlength="128">
+                                        <input type="text" class="form-control required" required value="<?php echo set_value('raison_sociale'); ?>" id="raison_sociale" name="raison_sociale" maxlength="128">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email">Office ID</label>
-                                        <input type="text" class="form-control required" id="officeID" value="<?php echo set_value('officeID'); ?>" name="officeID" maxlength="128">
+                                        <input type="text" style="text-transform: uppercase;" class="form-control required" id="officeID" required value="<?php echo set_value('officeID'); ?>" name="officeID" maxlength="128">
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="role">Type Agence</label>
-                                        <select class="form-control required" id="typeAgence" name="typeAgence">
+                                        <select class="form-control required" id="typeAgence" required name="typeAgence">
                                             <option value="0">Select type</option>
                                             <?php
                                             if(!empty($typeAgence))
@@ -74,14 +74,14 @@
                                 <div class="col-md-6">                                
                                     <div class="form-group">
                                         <label for="Username">Username</label>
-                                        <input type="text" class="form-control required" value="<?php echo set_value('username'); ?>" id="username" name="username" maxlength="128">
+                                        <input type="text" class="form-control required" required value="<?php echo set_value('username'); ?>" id="username" name="username" maxlength="128">
                                     </div>
                                     
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email">Email address</label>
-                                        <input type="text" class="form-control required email" id="email" value="<?php echo set_value('email'); ?>" name="email" maxlength="128">
+                                        <input type="text" class="form-control required email" required id="email" value="<?php echo set_value('email'); ?>" name="email" maxlength="128">
                                     </div>
                                 </div>
                             </div>
@@ -90,13 +90,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" class="form-control required" id="password" name="password" maxlength="20">
+                                        <input type="password" class="form-control required" required  id="password" name="password" maxlength="20">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="cpassword">Confirm Password</label>
-                                        <input type="password" class="form-control required equalTo" id="cpassword" name="cpassword" maxlength="20">
+                                        <input type="password" class="form-control required equalTo" required id="cpassword" name="cpassword" maxlength="20">
                                     </div>
                                 </div>
                             </div>
@@ -105,15 +105,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="registreDeCommerce">Registre De Commerce</label>
-                                        <input type="registreDeCommerce" class="form-control required" id="registreDeCommerce" name="registreDeCommerce" maxlength="20">
+                                        <input type="registreDeCommerce" class="form-control" id="registreDeCommerce" name="registreDeCommerce" maxlength="20">
                                     </div>
                                 </div>
-                                <div class="col-md-6" hidden>
-                                    <div class="form-group">
-                                        <label for="cpassword">Confirm Password</label>
-                                        <input type="password" class="form-control required equalTo" id="cpassword" name="cpassword" maxlength="20">
-                                    </div>
-                                </div>
+                               
                             </div>
                             
                         </div><!-- /.box-body -->
@@ -158,4 +153,4 @@
     </section>
     
 </div>
-<script src="<?php echo base_url(); ?>assets/js/addUser.js" type="text/javascript"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/js/addUser.js" type="text/javascript"></script> -->

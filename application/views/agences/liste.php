@@ -48,11 +48,11 @@
                     <tr>
                       <td><?php echo $record->id ?></td>
                       <td><?php echo $record->raison_sociale ?></td>
-                      <td><?php echo $record->officeID ?></td>
+                      <td><?php echo strtoupper($record->officeID) ?></td>
                       <td><?php echo $record->created_at ?></td>
                       <td class="text-center"> 
                           <a class="btn btn-sm btn-info" href="<?php echo base_url().'Agences/edit/'.$record->id; ?>" title="Edit"><i class="fa fa-pencil"></i></a>
-                          <a class="btn btn-sm btn-danger deleteAgence" href="#" data-AgenceId="<?php echo $record->id; ?>" title="Delete"><i class="fa fa-trash"></i></a>
+                          <a class="btn btn-sm btn-danger deleteAgence" data-id="<?php echo $record->id; ?>" href="#" data-AgenceId="<?php echo $record->id; ?>" title="Delete"><i class="fa fa-trash"></i></a>
                       </td>
                     </tr>
                     <?php

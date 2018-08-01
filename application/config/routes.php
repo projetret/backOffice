@@ -67,6 +67,9 @@ $route['Agences/Listing'] = 'agence/liste';
 $route['Agences/add'] = 'agence/add';
 $route['Agences/edit/(:num)'] = 'agence/edit/$1';
 $route['Agences/delete/(:num)'] = 'agence/delete/$1';
+$route['Agences/delete'] = 'agence/delete';
+$route['Agences/add/storage'] = "agence/add";
+
 
 $route['addNewUser'] = "user/addNewUser";
 $route['editOld'] = "user/editOld";

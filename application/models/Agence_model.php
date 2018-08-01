@@ -2,6 +2,8 @@
 
 class Agence_model extends CI_Model
 {
+    private $table = 'agences';
+    
     /**
      * This function is used to get the agence listing count
      * @param string $searchText : This is optional search text
@@ -9,17 +11,17 @@ class Agence_model extends CI_Model
      */
     function agenceListingCount($searchText = '')
     {
-        $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, Role.role');
-        $this->db->from('tbl_users as BaseTbl');
-        $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
+        $this->db->from('agences as BaseTbl');
         if(!empty($searchText)) {
             $likeCriteria = "(BaseTbl.email  LIKE '%".$searchText."%'
-                            OR  BaseTbl.name  LIKE '%".$searchText."%'
-                            OR  BaseTbl.mobile  LIKE '%".$searchText."%')";
+                            OR  BaseTbl.username  LIKE '%".$searchText."%'
+                            OR  BaseTbl.officeID  LIKE '%".$searchText."%'
+                            OR  BaseTbl.adresse  LIKE '%".$searchText."%'
+                            OR  BaseTbl.registreDeCommerce  LIKE '%".$searchText."%'
+                            OR  BaseTbl.raison_sociale  LIKE '%".$searchText."%')";
             $this->db->where($likeCriteria);
         }
         $this->db->where('BaseTbl.isDeleted', 0);
-        $this->db->where('BaseTbl.roleId !=', 1);
         $query = $this->db->get();
         
         return $query->num_rows();
@@ -35,11 +37,14 @@ class Agence_model extends CI_Model
      */
     function agencesListing($searchText = '', $page, $segment)
     {
-        $this->db->from('agences as BaseTbl');
+        $this->db->from( $this->table.' as BaseTbl');
         if(!empty($searchText)) {
-            $likeCriteria = "(BaseTbl.raison_sociale  LIKE '%".$searchText."%'
-                            OR  BaseTbl.officeID  LIKE '%".$searchText."%'
-                            OR  BaseTbl.created_at  LIKE '%".$searchText."%')";
+            $likeCriteria = "(BaseTbl.email  LIKE '%".$searchText."%'
+            OR  BaseTbl.username  LIKE '%".$searchText."%'
+            OR  BaseTbl.officeID  LIKE '%".$searchText."%'
+            OR  BaseTbl.adresse  LIKE '%".$searchText."%'
+            OR  BaseTbl.registreDeCommerce  LIKE '%".$searchText."%'
+            OR  BaseTbl.raison_sociale  LIKE '%".$searchText."%')";
             $this->db->where($likeCriteria);
         }
         $this->db->where('BaseTbl.isDeleted', 0);
@@ -49,6 +54,42 @@ class Agence_model extends CI_Model
         $result = $query->result();        
         return $result;
     }
+
+
+    /**
+     * This function is used to add new agence to system
+     * @return number $insert_id : This is last inserted id
+     */
+    function addAgence($data)
+    {
+        $this->db->trans_start();
+        $this->db->insert($this->table, $data);
+        
+        $insert_id = $this->db->insert_id();
+        
+        $this->db->trans_complete();
+        
+        return $insert_id;
+    }
+
+
+
+
+     /**
+     * This function is used to delete the agency information
+     * @param number $userId : This is agency id
+     * @return boolean $result : TRUE / FALSE
+     */
+    function delete($id, $data)
+    {
+        $this->db->where('id', $id);
+        $this->db->update($this->table, $data);
+        
+        return $this->db->affected_rows();
+    }
+
+
+
 
 }
 
