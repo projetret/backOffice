@@ -3,6 +3,7 @@
 class Agence_model extends CI_Model
 {
     private $table = 'agences';
+    private $tableRole = 'tbl_roles';
     
     /**
      * This function is used to get the agence listing count
@@ -89,7 +90,20 @@ class Agence_model extends CI_Model
     }
 
 
+    /**
+     * This function is used to get id role
+     * @param string $roleLib : This is role libellé
+     * @return number $result : agence id
+     */
+    function getRoleId($roleLibelle)
+    {
+        $this->db->select('roleId');
+        $this->db->from($this->tableRole);
+        $this->db->where('role', $roleLibelle);
+        $query = $this->db->get();
 
+        return $query->result();
+    }
 
 }
 

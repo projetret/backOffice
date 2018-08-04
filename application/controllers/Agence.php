@@ -92,9 +92,24 @@ class Agence extends BaseController
                     // send to module : addAgence
                     $result = $this->agence_model->addAgence($data_storage);
                     
-                    if($result > 0) { 
-                        $this->session->set_flashdata('success', 'New agancy created successfully');
-                        redirect('liste');
+                    if($result > 0) {
+                        // une fois les données de l'agence enregistré nous allons créé le compte Admin agence
+                        $data_storage = array(
+                            'email' => ucwords(strtolower($this->security->xss_clean($this->input->post('email')))),
+                            'name' => ucwords(strtolower($this->security->xss_clean($this->input->post('username')))),
+                            'password' => getHashedPassword($this->security->xss_clean($this->input->post('password'))),
+                            'roleId' => $this->agence_model->getRoleId('AdminAgence')[0]->roleId,
+                            'agenceId' => $result,
+                            'passwordToBeChanged' => 1,
+                            'createdBy' => $this->vendorId,
+                            'createdDtm'=>date('Y-m-d H:i:s')
+                        );
+                        $this->load->model('user_model');
+                        $idUser = $this->user_model->addNewUser($data_storage);
+                        if($idUser>1) { $this->session->set_flashdata('success', 'New agancy created successfully'); }
+                        else { $this->session->set_flashdata('error', 'Admin agancy creation failed');}
+
+                        redirect('agence/liste');
                     }
                     else { $this->session->set_flashdata('error', 'Agancy creation failed');}
 
@@ -136,6 +151,7 @@ class Agence extends BaseController
             if ($result > 0) { echo(json_encode(array('status'=>TRUE))); }
             else { echo(json_encode(array('status'=>FALSE))); }
         }
+        return true;
     }
     
 
